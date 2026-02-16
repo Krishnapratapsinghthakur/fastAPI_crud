@@ -1,368 +1,188 @@
-<![CDATA[<!-- Header Banner -->
-<div align="center">
-  
-  <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" alt="FastAPI" width="300"/>
+# ✅ FastAPI Todo CRUD API
 
-  <br/>
-  <br/>
+A clean, minimal RESTful API for managing Todos — built with **FastAPI**, **SQLAlchemy**, and **PostgreSQL**.
 
-  # 🗂️ Todo CRUD API
-  
-  ### A **blazing-fast** RESTful API for managing Todos — powered by FastAPI & PostgreSQL
+![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.129+-009688?style=flat-square&logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-D71F00?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-  <br/>
+---
 
-  [![Python](https://img.shields.io/badge/python-3.12+-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-0.129+-00C7B7?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-  [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-red?style=flat-square)](https://www.sqlalchemy.org/)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-  [![uv](https://img.shields.io/badge/uv-package%20manager-blueviolet?style=flat-square)](https://docs.astral.sh/uv/)
+## 🚀 Features
 
-  <br/>
+- **⚡ FastAPI** — High-performance async Python framework
+- **🗄️ PostgreSQL** — Reliable relational database
+- **🔗 SQLAlchemy ORM** — Clean database interactions
+- **🛡️ Pydantic v2** — Automatic request/response validation
+- **📖 Auto Docs** — Swagger UI & ReDoc built-in
+- **🔒 Secure Config** — Database credentials via `.env` file
+- **🏗️ Clean Architecture** — Separated models, schemas & routes
 
-  **[Explore the Docs »](http://127.0.0.1:8000/docs)** · **[Report Bug](../../issues)** · **[Request Feature](../../issues)**
-
-  <br/>
-  
-  ---
-
-</div>
-
-<br/>
-
-## � About
-
-> **Simple. Clean. Production-ready.**
-
-This project is a fully functional **CRUD (Create, Read, Update, Delete) API** for managing a Todo list. It's built as a learning reference and starter template showcasing:
-
-- 🏛️ Clean separation of concerns *(models → schemas → routes)*
-- � Dependency injection for database sessions
-- 🛡️ Automatic request validation with Pydantic v2
-- � Auto-generated interactive API documentation
-
-<br/>
-
-## 🗺️ Architecture
-
-```
-                    ┌─────────────────────────────────────────────────┐
-                    │                  CLIENT                         │
-                    │           (curl / Postman / Frontend)           │
-                    └────────────────────┬────────────────────────────┘
-                                         │  HTTP Request
-                                         ▼
-┌────────────────────────────────────────────────────────────────────────────┐
-│                           FastAPI Application                              │
-│                                                                            │
-│   ┌─────────────┐    ┌──────────────┐    ┌─────────────┐    ┌───────────┐ │
-│   │  main.py    │───▶│  schemas.py  │    │  models.py  │    │database.py│ │
-│   │  (Routes)   │    │  (Validate)  │    │  (ORM Map)  │    │ (Engine)  │ │
-│   └──────┬──────┘    └──────────────┘    └──────┬──────┘    └─────┬─────┘ │
-│          │                                       │                 │       │
-│          └───────────────────────────────────────┴─────────────────┘       │
-│                                         │                                  │
-└─────────────────────────────────────────┼──────────────────────────────────┘
-                                          │  SQLAlchemy ORM
-                                          ▼
-                              ┌──────────────────────┐
-                              │    PostgreSQL DB      │
-                              │    ┌──────────────┐   │
-                              │    │  todos table  │   │
-                              │    └──────────────┘   │
-                              └──────────────────────┘
-```
-
-<br/>
+---
 
 ## 📁 Project Structure
 
-```bash
-.
-├── 🚀 main.py          # App instance, dependency injection & all CRUD routes
-├── 🗄️ database.py       # SQLAlchemy engine, session factory & Base
-├── 📦 models.py         # Todo ORM model (maps to 'todos' table)
-├── 🛡️ schemas.py        # Pydantic schemas for validation & serialization
-├── 📋 pyproject.toml    # Project config & dependency list (managed by uv)
-├── 🔒 uv.lock           # Locked dependency versions
-└── 📖 README.md
+```
+├── main.py           # App entry point & CRUD routes
+├── database.py       # SQLAlchemy engine & session config
+├── models.py         # ORM model (Todo table)
+├── schemas.py        # Pydantic validation schemas
+├── .env              # Environment variables (not committed)
+├── .env.example      # Template for env variables
+├── pyproject.toml    # Dependencies & project config
+└── README.md
 ```
 
-<br/>
+---
 
-## ⚡ Quick Start
+## ⚙️ Getting Started
 
 ### Prerequisites
 
-| Tool | Version | Install |
-|------|---------|---------|
-| Python | `3.12+` | [python.org](https://www.python.org/downloads/) |
-| PostgreSQL | `15+` | [postgresql.org](https://www.postgresql.org/download/) |
-| uv | latest | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+- **Python 3.12+**
+- **PostgreSQL** running locally
+- **uv** package manager — `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
-### Setup in 60 seconds ⏱️
+### Installation
 
 ```bash
-# 1️⃣  Clone
-git clone https://github.com/<your-username>/fastapi-todo-crud.git && cd fastapi-todo-crud
+# Clone the repo
+git clone https://github.com/<your-username>/fastapi-todo-crud.git
+cd fastapi-todo-crud
 
-# 2️⃣  Create virtual environment & install deps
-uv venv && source .venv/bin/activate && uv sync
+# Create virtual environment & install dependencies
+uv venv
+source .venv/bin/activate
+uv sync
+```
 
-# 3️⃣  Configure your database URL in database.py
-#     SQLALCHEMY_DATABASE_URL = "postgresql://user:password@localhost/your_db"
+### Configuration
 
-# 4️⃣  Launch! 🚀
+Create a `.env` file in the project root (see `.env.example`):
+
+```env
+DATABASE_URL=postgresql://user:password@localhost/your_database
+```
+
+### Run the Server
+
+```bash
 uvicorn main:app --reload
 ```
 
-> 🟢 **Server running at** → `http://127.0.0.1:8000`
-> 
-> 📖 **Swagger Docs** → `http://127.0.0.1:8000/docs`
-> 
-> 📘 **ReDoc** → `http://127.0.0.1:8000/redoc`
+> 🟢 API live at → **http://127.0.0.1:8000**
+>
+> 📖 Swagger Docs → **http://127.0.0.1:8000/docs**
+>
+> 📘 ReDoc → **http://127.0.0.1:8000/redoc**
 
-<br/>
+---
 
-## � API Reference
+## 🔥 API Endpoints
 
-### Endpoints
+| Method | Endpoint | Description |
+|:------:|----------|-------------|
+| `POST` | `/todos/` | Create a new todo |
+| `GET` | `/todos/` | Get all todos |
+| `PUT` | `/todos/{id}` | Update a todo |
+| `DELETE` | `/todos/{id}` | Delete a todo |
 
-| Method | Endpoint | Description | Status |
-|:------:|----------|-------------|:------:|
-| 🟢 `POST` | `/todos/` | Create a new todo | `201` |
-| 🔵 `GET` | `/todos/` | Fetch all todos | `200` |
-| 🟡 `PUT` | `/todos/{id}` | Update a todo | `200` |
-| 🔴 `DELETE` | `/todos/{id}` | Delete a todo | `200` |
+---
 
-### Usage Examples
+## 📝 Usage Examples
 
-<details>
-<summary><b>� POST</b> — Create a Todo</summary>
-
-<br/>
+### Create a Todo
 
 ```bash
 curl -X POST http://127.0.0.1:8000/todos/ \
   -H "Content-Type: application/json" \
-  -d '{
-    "title": "Learn FastAPI",
-    "description": "Build a production-ready CRUD API",
-    "completed": false
-  }'
+  -d '{"title": "Learn FastAPI", "description": "Build a CRUD API", "completed": false}'
 ```
 
+**Response:**
 ```json
-// ✅ Response 201
 {
   "title": "Learn FastAPI",
-  "description": "Build a production-ready CRUD API",
+  "description": "Build a CRUD API",
   "completed": false,
   "id": 1
 }
 ```
 
-</details>
-
-<details>
-<summary><b>� GET</b> — Fetch All Todos</summary>
-
-<br/>
+### Get All Todos
 
 ```bash
 curl http://127.0.0.1:8000/todos/
 ```
 
-```json
-// ✅ Response 200
-[
-  {
-    "title": "Learn FastAPI",
-    "description": "Build a production-ready CRUD API",
-    "completed": false,
-    "id": 1
-  }
-]
-```
-
-</details>
-
-<details>
-<summary><b>🟡 PUT</b> — Update a Todo</summary>
-
-<br/>
+### Update a Todo
 
 ```bash
 curl -X PUT http://127.0.0.1:8000/todos/1 \
   -H "Content-Type: application/json" \
-  -d '{
-    "title": "Learn FastAPI",
-    "description": "CRUD API ✅ Done!",
-    "completed": true
-  }'
+  -d '{"title": "Learn FastAPI", "description": "Done!", "completed": true}'
 ```
 
-```json
-// ✅ Response 200
-{
-  "title": "Learn FastAPI",
-  "description": "CRUD API ✅ Done!",
-  "completed": true,
-  "id": 1
-}
-```
-
-</details>
-
-<details>
-<summary><b>� DELETE</b> — Delete a Todo</summary>
-
-<br/>
+### Delete a Todo
 
 ```bash
 curl -X DELETE http://127.0.0.1:8000/todos/1
 ```
 
-```json
-// ✅ Response 200
-{
-  "message": "Deleted"
-}
+---
+
+## 🧩 How It Works
+
+```
+Client Request → FastAPI Route → Pydantic Validation → SQLAlchemy ORM → PostgreSQL
 ```
 
-</details>
-
-<br/>
-
-## 🧠 How It Works
-
-```mermaid
-flowchart LR
-    A[📱 Client Request] --> B{FastAPI Router}
-    B -->|Validate| C[🛡️ Pydantic Schema]
-    C --> D[📦 SQLAlchemy Model]
-    D --> E[(🗄️ PostgreSQL)]
-    E --> D
-    D --> F[🛡️ Response Schema]
-    F --> G[📱 JSON Response]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style E fill:#336791,stroke:#333,stroke-width:2px,color:#fff
-    style G fill:#0f0,stroke:#333,stroke-width:2px
-```
-
-| Step | What Happens |
-|------|-------------|
-| **1. Request** | Client sends HTTP request with JSON body |
-| **2. Validation** | Pydantic schema validates & parses the payload |
-| **3. ORM** | SQLAlchemy model maps the data to the database |
-| **4. Database** | PostgreSQL persists / retrieves the data |
-| **5. Response** | Data is serialized back via Pydantic & returned as JSON |
-
-<br/>
-
-## 🧩 Key Files Explained
-
-<details>
-<summary><code>📄 database.py</code> — Database Configuration</summary>
-
-<br/>
-
-- Creates the **SQLAlchemy engine** connected to PostgreSQL
-- Configures `SessionLocal` — a session factory for database transactions
-- Exports `Base` — the declarative base all ORM models inherit from
-
-</details>
-
-<details>
-<summary><code>📄 models.py</code> — ORM Model</summary>
-
-<br/>
-
-Defines the `Todo` model mapped to the `todos` table:
-
-| Column | Type | Details |
-|--------|------|---------|
-| `id` | `Integer` | Primary key, auto-increment |
-| `title` | `String` | Indexed for fast lookups |
-| `description` | `String` | Required field |
-| `completed` | `Boolean` | Defaults to `False` |
-
-</details>
-
-<details>
-<summary><code>📄 schemas.py</code> — Pydantic Schemas</summary>
-
-<br/>
-
-| Schema | Purpose |
-|--------|---------|
-| `TodoBase` | Shared fields: title, description, completed |
-| `TodoCreate` | Input schema for POST/PUT (inherits TodoBase) |
-| `TodoResponse` | Output schema — adds `id` + enables `from_attributes` |
-
-</details>
-
-<details>
-<summary><code>📄 main.py</code> — Routes & Application</summary>
-
-<br/>
-
-- Initializes the **FastAPI app**
-- Auto-creates tables via `Base.metadata.create_all()`
-- Provides `get_db()` dependency for database session management
-- Defines all **4 CRUD routes** with proper HTTP methods & status codes
-
-</details>
-
-<br/>
-
-## 🛣️ Roadmap
-
-- [ ] Add pagination to `GET /todos/`
-- [ ] Add filtering & search (`?completed=true`, `?q=search`)
-- [ ] Environment variable support for database URL
-- [ ] Add unit & integration tests
-- [ ] Dockerize the application
-- [ ] Deploy to Railway / Render
-
-<br/>
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a PR.
-
-```bash
-# Fork → Clone → Branch → Commit → Push → PR
-git checkout -b feature/amazing-feature
-git commit -m "Add amazing feature"
-git push origin feature/amazing-feature
-```
-
-<br/>
-
-## 📜 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
-
-<br/>
+1. **Client** sends an HTTP request (JSON body)
+2. **FastAPI** routes it and **Pydantic** validates the payload
+3. **SQLAlchemy** maps the data to the `todos` table
+4. **PostgreSQL** stores/retrieves the data
+5. Response is serialized back as JSON
 
 ---
 
-<div align="center">
-  
-  **Built with 🐍 Python & ⚡ FastAPI**
+## 🗃️ Database Model
 
-  <br/>
+| Column | Type | Details |
+|--------|------|---------|
+| `id` | Integer | Primary key, auto-increment |
+| `title` | String | Indexed |
+| `description` | String | Required |
+| `completed` | Boolean | Default: `false` |
 
-  If this helped you, give it a ⭐!
-  
-  <br/>
+---
 
-  <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/Docs-FastAPI-009688?style=for-the-badge&logo=fastapi" /></a>
-  <a href="https://www.sqlalchemy.org/"><img src="https://img.shields.io/badge/Docs-SQLAlchemy-D71F00?style=for-the-badge" /></a>
-  <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/Docs-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" /></a>
+## 🛣️ Roadmap
 
-</div>
-]]>
+- [ ] Pagination for `GET /todos/`
+- [ ] Filtering & search queries
+- [ ] Unit & integration tests
+- [ ] Docker support
+- [ ] Deploy to Railway / Render
+
+---
+
+## 🤝 Contributing
+
+```bash
+# Fork → Clone → Branch → Commit → Push → PR
+git checkout -b feature/your-feature
+git commit -m "Add your feature"
+git push origin feature/your-feature
+```
+
+---
+
+## 📜 License
+
+MIT License — feel free to use this project however you like.
+
+---
+
+**Built with ❤️ using FastAPI** — ⭐ Star this repo if you found it helpful!
